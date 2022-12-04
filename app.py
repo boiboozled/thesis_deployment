@@ -325,10 +325,10 @@ image_card_custom_axes = dbc.Card(
                 html.H4("Choose what the axes of the grapgh should be",className="card-title"),
                 dbc.Row(
                     [
-                        dbc.Col(html.H6("choose x axis:", className="card-text"),width=3),
-                        dbc.Col(html.H6("choose y axis:", className="card-text"), width=3),
-                        dbc.Col(html.H6("choose color axis:", className="card-text"), width=3),
-                        dbc.Col(html.H6("choose size axis:", className="card-text"), width=3),
+                        dbc.Col(html.H6("x axis:", className="card-text"),width=3),
+                        dbc.Col(html.H6("y axis:", className="card-text"), width=3),
+                        dbc.Col(html.H6("color:", className="card-text"), width=3),
+                        dbc.Col(html.H6("size:", className="card-text"), width=3),
                     ]
                 ),
                 dbc.Row(
