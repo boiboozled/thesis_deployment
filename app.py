@@ -15,17 +15,9 @@ server = app.server
 
 # *********************************************************************************************************
 
-def load_data(data_file: str) -> pd.DataFrame:
-    '''
-    Load data from /data directory
-    '''
-    PATH = pathlib.Path(__file__).parent
-    DATA_PATH = PATH.joinpath("data").resolve()
-    return pd.read_csv(DATA_PATH.joinpath(data_file))
-
-shotperf = pd.read_csv('player_performance_pressure.csv')
+shotperf = pd.read_csv('./data/player_performance_pressure.csv')
 shotperf['AST_TO_SUM'] = shotperf['AST_SUM'] + shotperf['TO_SUM']
-shotdata = pd.read_csv('shotchart_data.csv')
+shotdata = pd.read_csv('./data/shotchart_data.csv')
 axes_choices = shotperf.columns[1:]
 # *********************************************************************************************************
 
