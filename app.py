@@ -11,7 +11,7 @@ from shotchart_module import shot_chart,shot_chart_plotly,convert_seaborn_to_img
 app = Dash(__name__, suppress_callback_exceptions=True,external_stylesheets=[dbc.themes.SOLAR])
 # Declare server for Heroku deployment. Needed for Procfile.
 server = app.server
-axes_choices = shotperf.columns[1:]
+
 
 # *********************************************************************************************************
 
@@ -26,7 +26,7 @@ def load_data(data_file: str) -> pd.DataFrame:
 shotperf = pd.read_csv('player_performance_pressure.csv')
 shotperf['AST_TO_SUM'] = shotperf['AST_SUM'] + shotperf['TO_SUM']
 shotdata = pd.read_csv('shotchart_data.csv')
-
+axes_choices = shotperf.columns[1:]
 # *********************************************************************************************************
 
 alert = dbc.Alert("Please choose players from dropdown to avoid further disappointment!", color="danger",
