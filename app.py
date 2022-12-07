@@ -24,6 +24,52 @@ axes_choices = shotperf.columns[1:]
 alert = dbc.Alert("Please choose players from dropdown to avoid further disappointment!", color="danger",
                   dismissable=True),  # use dismissable or duration=5000 for alert to close in x milliseconds
 
+modal = html.Div(
+    [
+        dbc.Button("Info", id="modal_info"),
+        dbc.Modal([
+            dbc.ModalHeader(dbc.ModalTitle("Explanaition of the features available to choose from")),
+            dbc.ModalBody(
+                [html.Div("PERFORMANCE_2P: 2 point shooting performance"),
+                html.Div("PERFORMANCE_3P: 3 point shooting performance"),
+                html.Div("PERFORMANCE_FT: free-throw shooting performance"),
+                html.Div("SHOTS_SUM: Total shots taken"),
+                html.Div("SHOTS_SUM_2P: Total 2 point shots taken"),
+                html.Div("SHOTS_SUM_3P: Total 3 point shots taken"),
+                html.Div("SHOTS_SUM_FT: Total free-throws shots taken"),
+                html.Div("SHOTS_SUM_PRES_2P: Total 2 point shots taken under pressure"),
+                html.Div("SHOTS_SUM_PRES_3P: Total 3 point shots taken under pressure"),
+                html.Div("SHOTS_SUM_PRES_FT: Total free-throws shots taken under pressure"),
+                html.Div("SHOTS_SUM_cat_1: Total shots taken when under pressure category 1"),
+                html.Div("SHOTS_SUM_2P_cat_1: Total 2 point shots taken when under pressure category 1"),
+                html.Div("SHOTS_SUM_3P_cat_1: Total 3 point shots taken when under pressure category 1"),
+                html.Div("SHOTS_SUM_FT_cat_1: Total free-throws shots taken when under pressure category 1"),
+                html.Div("SHOTS_SUM_cat_2: Total shots taken when under pressure category 2"),
+                html.Div("SHOTS_SUM_2P_cat_2: Total 2 point shots taken when under pressure category 2"),
+                html.Div("SHOTS_SUM_3P_cat_2: Total 3 point shots taken when under pressure category 2"),
+                html.Div("SHOTS_SUM_FT_cat_2: Total free-throw shots taken when under pressure category 2"),
+                html.Div("PERFORMANCE_2P_DELTA_cat_1: 2 point shooting performance under pressure category 1, relative to 2 point shooting performance under no pressure"),
+                html.Div("PERFORMANCE_3P_DELTA_cat_1: 3 point shooting performance under pressure category 1, relative to 3 point shooting performance under no pressure"),
+                html.Div("PERFORMANCE_FT_DELTA_cat_1: free-throw shooting performance under pressure category 1, relative to free-throw shooting performance under no pressure"),
+                html.Div("PERFORMANCE_2P_DELTA_cat_2: 2 point shooting performance under pressure category 2, relative to 2 point shooting performance under no pressure"),
+                html.Div("PERFORMANCE_3P_DELTA_cat_2: 3 point shooting performance under pressure category 2, relative to 3 point shooting performance under no pressure"),
+                html.Div("PERFORMANCE_FT_DELTA_cat_2: free-throw shooting performance under pressure category 2, relative to free-throw shooting performance under no pressure"),
+                html.Div("SHOTTREND_2P: 2 point shooting trend when under pressure"),
+                html.Div("SHOTTREND_3P: 3 point shooting trend when under pressure"),
+                html.Div("SHOTTREND_FT: free-throw shooting trend when under pressure")]
+            ),
+
+        ],
+        id="modal",
+        size="xl",  # "sm", "lg", "xl"
+        backdrop=True,  # True, False or Static for modal to not be closed by clicking on backdrop
+        scrollable=True,  # False or True if modal has a lot of text
+        centered=True,  # True, False
+        fade=True  # True, False
+        )
+    ]
+)
+
 # *********************************************************************************************************
 
 nav_bar = dbc.Nav(
@@ -329,6 +375,7 @@ image_card_custom_axes = dbc.Card(
                         dbc.Col(html.H6("y axis:", className="card-text"), width=3),
                         dbc.Col(html.H6("color:", className="card-text"), width=3),
                         dbc.Col(html.H6("size:", className="card-text"), width=3),
+                        modal
                     ]
                 ),
                 dbc.Row(
@@ -748,7 +795,7 @@ def add_all_players_to_nba_card(click_n):
     Output('player_chosen_wts','value'),
     Input('all-players-bottom-target_wts','n_clicks'), prevent_initial_call=True
 )
-def add_all_players_to_nba_card(click_n):
+def add_all_players_to_wts(click_n):
     if click_n:
         return shotperf['PLAYER_NAME'].unique()
     else:
@@ -758,7 +805,7 @@ def add_all_players_to_nba_card(click_n):
     Output('player_chosen_ast_to_trend','value'),
     Input('all-players-bottom-target_ast_to_trend','n_clicks'), prevent_initial_call=True
 )
-def add_all_players_to_nba_card(click_n):
+def add_all_players_to_ast_to_trend(click_n):
     if click_n:
         return shotperf['PLAYER_NAME'].unique()
     else:
@@ -768,7 +815,7 @@ def add_all_players_to_nba_card(click_n):
     Output('player_chosen_pres_2','value'),
     Input('all-players-bottom-target_pres_2','n_clicks'), prevent_initial_call=True
 )
-def add_all_players_to_nba_card(click_n):
+def add_all_players_to_pres_2(click_n):
     if click_n:
         return shotperf['PLAYER_NAME'].unique()
     else:
@@ -778,7 +825,7 @@ def add_all_players_to_nba_card(click_n):
     Output('player_chosen_pres_3','value'),
     Input('all-players-bottom-target_pres_3','n_clicks'), prevent_initial_call=True
 )
-def add_all_players_to_nba_card(click_n):
+def add_all_players_to_pres_3(click_n):
     if click_n:
         return shotperf['PLAYER_NAME'].unique()
     else:
@@ -788,7 +835,7 @@ def add_all_players_to_nba_card(click_n):
     Output('player_chosen_pres_ft','value'),
     Input('all-players-bottom-target_pres_ft','n_clicks'), prevent_initial_call=True
 )
-def add_all_players_to_nba_card(click_n):
+def add_all_players_to_pres_ft(click_n):
     if click_n:
         return shotperf['PLAYER_NAME'].unique()
     else:
@@ -798,12 +845,22 @@ def add_all_players_to_nba_card(click_n):
     Output('player_chosen_custom','value'),
     Input('all-players-bottom-target_custom','n_clicks'), prevent_initial_call=True
 )
-def add_all_players_to_nba_card(click_n):
+def add_all_players_to_custom(click_n):
     if click_n:
         return shotperf['PLAYER_NAME'].unique()
     else:
         return no_update
 
+@app.callback(
+    Output("modal", "is_open"),
+    Input("modal_info", "n_clicks"),
+    [State("modal", "is_open")],
+)
+def toggle_modal(click, is_open):
+    if click:
+        return not is_open
+    return is_open
+
 
 if __name__ == "__main__":
-    app.run_server()#debug=True)
+    app.run_server(debug=True)
