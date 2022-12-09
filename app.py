@@ -56,7 +56,11 @@ modal = html.Div(
                 html.Div("PERFORMANCE_FT_DELTA_cat_2: free-throw shooting performance under pressure category 2, relative to free-throw shooting performance under no pressure"),
                 html.Div("SHOTTREND_2P: 2 point shooting trend when under pressure"),
                 html.Div("SHOTTREND_3P: 3 point shooting trend when under pressure"),
-                html.Div("SHOTTREND_FT: free-throw shooting trend when under pressure")]
+                html.Div("SHOTTREND_FT: free-throw shooting trend when under pressure"),
+                html.Hr(),
+                html.Div(html.H5("The two pressure categories are:")),
+                html.Div("A team lost the first 3:40 of a quarter,"),
+                html.Div("A team went -10 or worse in the last five minutes of play, with less than 8:20 on the game clock.")]
             ),
 
         ],
@@ -374,8 +378,7 @@ image_card_custom_axes = dbc.Card(
                         dbc.Col(html.H6("x axis:", className="card-text"),width=3),
                         dbc.Col(html.H6("y axis:", className="card-text"), width=3),
                         dbc.Col(html.H6("color:", className="card-text"), width=3),
-                        dbc.Col(html.H6("size:", className="card-text"), width=3),
-                        modal
+                        dbc.Col(html.H6("size:", className="card-text"), width=3)
                     ]
                 ),
                 dbc.Row(
@@ -397,7 +400,10 @@ image_card_custom_axes = dbc.Card(
                                      value="SHOTS_SUM",
                                      style={"color": "#000000"}), width=3),
                     ], justify="around"
-                )
+                ),
+                dbc.Row([
+                    modal
+                ])
             ]
         )
     ], color="light", class_name="mb-3"
@@ -863,4 +869,4 @@ def toggle_modal(click, is_open):
 
 
 if __name__ == "__main__":
-    app.run_server(debug=True)
+    app.run_server()#debug=True)
